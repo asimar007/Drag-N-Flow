@@ -14,6 +14,7 @@ interface Props {
   deleteTask: (id: Id) => void;
   updateTask: (id: Id, content: string) => void;
   tasks: Task[];
+  index: number; // Add this prop type
 }
 
 function ColumnContainer(props: Props) {
@@ -25,7 +26,19 @@ function ColumnContainer(props: Props) {
     tasks,
     deleteTask,
     updateTask,
+    index = 0,
   } = props;
+
+  const getColumnHeaderColor = (index: number) => {
+    const colors = [
+      "#FF6B6B", // Red-ish
+      "#4ECDC4", // Teal-ish
+      "#FFD93D", // Yellow-ish
+      "#95D5B2", // Green-ish
+      "#8B5CF6", // Purple-ish
+    ];
+    return colors[index % colors.length];
+  };
 
   const [editMode, setEditMode] = useState(false);
 
@@ -57,9 +70,24 @@ function ColumnContainer(props: Props) {
     return (
       <div
         ref={setNodeRef}
-        style={style}
+        style={{
+          ...style,
+          backgroundColor: getColumnHeaderColor(index),
+        }}
         className="bg-columnBackgroundColor w-[350px] h-[500px] rounded-md flex flex-col opacity-40 border-2 border-rose-500"
-      ></div>
+      >
+        <div
+          className="text-md h-[60px] cursor-grab rounded-t-xl p-3 font-bold border-columnBackgroundColor border-4 flex items-center justify-between"
+          style={{ backgroundColor: getColumnHeaderColor(index) }}
+        >
+          <div className="flex gap-2">
+            <div className="flex justify-center items-center bg-columnBackgroundColor px-2 py-1 text-sm rounded-full">
+              0
+            </div>
+            {column.title}
+          </div>
+        </div>
+      </div>
     );
   }
   return (
@@ -68,14 +96,17 @@ function ColumnContainer(props: Props) {
       style={style}
       className="bg-columnBackgroundColor w-[350px] h-[500px] rounded-md flex flex-col"
     >
-      {/** Column Title */}
       <div
         {...attributes}
         {...listeners}
         onClick={() => {
           if (!editMode) setEditMode(true);
         }}
-        className="bg-mainBackgroundColor text-md h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-columnBackgroundColor border-4 flex items-center justify-between"
+        style={{
+          ...style,
+          backgroundColor: getColumnHeaderColor(index),
+        }}
+        className="text-md h-[60px] cursor-grab rounded-t-xl p-3 font-bold border-columnBackgroundColor border-4 flex items-center justify-between"
       >
         <div className="flex gap-2">
           <div className="flex justify-center items-center bg-columnBackgroundColor px-2 py-1 text-sm rounded-full">

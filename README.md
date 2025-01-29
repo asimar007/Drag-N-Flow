@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+# Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive Kanban board built with React, TypeScript, and DND Kit. This project allows users to manage tasks through a drag-and-drop interface with customizable columns and tasks.
 
-Currently, two official plugins are available:
+![Kanban Board Demo](./public/demo.gif)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Drag and Drop Functionality**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  - Reorder tasks within columns
+  - Move tasks between columns
+  - Reorder columns
+  - Smooth drag animations
 
-- Configure the top-level `parserOptions` property like this:
+- **Column Management**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+  - Create new columns
+  - Edit column titles
+  - Delete columns with all associated tasks
+  - Dynamic column reordering
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Task Management**
+  - Create tasks in any column
+  - Edit task content
+  - Delete tasks
+  - Move tasks between columns
+  - Inline task editing
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Tech Stack
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+- React 18.3
+- TypeScript
+- Vite
+- Tailwind CSS
+- DND Kit for drag-and-drop functionality
+- SWC for fast refresh
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/kunban_board.git
+cd kunban_board
 ```

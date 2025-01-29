@@ -15,13 +15,32 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import TaskCard from "./TaskCard";
+import { useEffect } from "react";
 
 export const KanbanBoard = () => {
-  const [columns, setColumns] = useState<Column[]>([]);
-  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
+  const [columns, setColumns] = useState<Column[]>(() => {
+    const savedColumns = localStorage.getItem("columns");
+    return savedColumns ? JSON.parse(savedColumns) : [];
+  });
+
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+  // Save to localStorage whenever columns or tasks change
+  useEffect(() => {
+    localStorage.setItem("columns", JSON.stringify(columns));
+  }, [columns]);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -195,7 +214,7 @@ export const KanbanBoard = () => {
         <div className="m-auto flex gap-4">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map((col) => (
+              {columns.map((col, index) => (
                 <ColumnContainer
                   key={col.id}
                   column={col}
@@ -205,6 +224,7 @@ export const KanbanBoard = () => {
                   tasks={tasks.filter((task) => task.columnId === col.id)}
                   deleteTask={deleteTask}
                   updateTask={updateTask}
+                  index={index}
                 />
               ))}
             </SortableContext>
@@ -230,6 +250,7 @@ export const KanbanBoard = () => {
                 tasks={tasks.filter(
                   (task) => task.columnId === activeColumn.id
                 )}
+                index={columns.findIndex((col) => col.id === activeColumn.id)} // Add index prop
               />
             )}
             {activeTask && (
