@@ -14,7 +14,7 @@ interface Props {
   deleteTask: (id: Id) => void;
   updateTask: (id: Id, content: string) => void;
   tasks: Task[];
-  index: number; // Add this prop type
+  index: number;
 }
 
 function ColumnContainer(props: Props) {
