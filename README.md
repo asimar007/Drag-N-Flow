@@ -1,8 +1,8 @@
-# Kanban Board
+# Drag N Flow
 
 A modern, interactive Kanban board built with React, TypeScript, and DND Kit. This project allows users to manage tasks through a drag-and-drop interface with customizable columns and tasks.
 
-![Kanban Board Demo](./public/demo.gif)
+![Drag N Flow](./public/demo.gif)
 
 ## Features
 
@@ -48,6 +48,6 @@ A modern, interactive Kanban board built with React, TypeScript, and DND Kit. Th
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/kunban_board.git
-cd kunban_board
+git clone https://github.com/asimar007/Drag-N-Flow.git
+cd Drag-N-Flow
 ```
